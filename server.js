@@ -8,7 +8,7 @@ const options = {
 app.use(cors(options));
 
 app.get("/", (req, res) => {
-  res.status(200).send("selamat datang di web saya percobaan 6");
+  res.status(200).send("selamat datang di web saya percobaan 7");
 });
 
 const PORT = process.env.PORT || 5000;
