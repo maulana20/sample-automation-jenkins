@@ -1,0 +1,46 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  data-volume:
+    driver: local
+
+services:
+  db:
+    image: mariadb:10.6
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "1"
+    volumes:
+      - ./volumes/db:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=laravel
+      - MARIADB_USER=root
+      - MARIADB_PASSWORD=root
+      - MARIADB_INITDB_SKIP_TZINFO=GMT
+    networks:
+      - app-network
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    image: bot-automation-webhook/web:local
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    volumes:
+      - ./web:/var/www/html
+    ports:
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - app-network
