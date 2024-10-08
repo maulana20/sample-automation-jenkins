@@ -1,1 +1,1 @@
-# botz-automation-webhook
+# bota-automation-webhook
