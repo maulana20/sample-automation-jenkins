@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Github;
 
-class GithubWebhookPullRequestJob extends GithubWebhookBaseJob
+class PingGithubJob extends BaseGithubJob
 {
     public function handle(): void
     {
         $this->to      = $this->payload->repository->owner->login;
         $this->message = $this->getMessage($this->event, [
-            "user"    => $this->payload->pull_request->user->login,
-            "message" => $this->payload->pull_request->title,
+            "user"    => $this->payload->repository->owner->login,
         ]);
         parent::handle();
     }

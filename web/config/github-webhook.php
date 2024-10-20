@@ -1,7 +1,6 @@
 <?php
 
 use Spatie\GitHubWebhooks\Models\GitHubWebhookCall;
-use Spatie\GitHubWebhooks\Jobs\ProcessGitHubWebhookJob;
 use Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile;
 
 return [
@@ -21,10 +20,10 @@ return [
      * You can use "*" to let a job handle all sent webhook types
      */
     'jobs' => [
-        'ping' => \App\Jobs\GithubWebhookPingJob::class,
-        'push' => \App\Jobs\GithubWebhookPushJob::class,
-        'pull_request.opened' => \App\Jobs\GithubWebhookPullRequestJob::class,
-        'issue_comment.created' => \App\Jobs\GithubWebhookIssueCommentJob::class,
+        'ping' => \App\Jobs\Github\PingGithubJob::class,
+        'push' => \App\Jobs\Github\PushGithubJob::class,
+        'pull_request.opened' => \App\Jobs\Github\PullRequestGithubJob::class,
+        'issue_comment.created' => \App\Jobs\Github\IssueCommentGithubJob::class,
     ],
 
     /*
@@ -45,7 +44,7 @@ return [
      * The classname of the job to be used. The class should equal or extend
      * Spatie\GitHubWebhooks\ProcessGitHubWebhookJob.
      */
-    'job' => ProcessGitHubWebhookJob::class,
+    'job' => \App\Jobs\ProcessGithubJob::class,
 
     /**
      * This class determines if the webhook call should be stored and processed.
