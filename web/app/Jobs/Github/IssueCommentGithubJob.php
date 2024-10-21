@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Github;
 
-class GithubWebhookIssueCommentJob extends GithubWebhookBaseJob
+class IssueCommentGithubJob extends BaseGithubJob
 {
     public function handle(): void
     {

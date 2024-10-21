@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Github;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Spatie\GitHubWebhooks\Models\GitHubWebhookCall;
 use App\Traits\MessageableTrait;
 
-class GithubWebhookBaseJob implements ShouldQueue
+class BaseGithubJob implements ShouldQueue
 {
     use Queueable, MessageableTrait;
 
@@ -17,10 +17,10 @@ class GithubWebhookBaseJob implements ShouldQueue
     protected $to;
     protected $message;
 
-    public function __construct(GithubWebhookCall $githubWebhook)
+    public function __construct(GithubWebhookCall $webhookCall)
     {
-        $this->event         = $githubWebhook->eventActionName();
-        $this->payload       = json_decode($githubWebhook->payload["payload"]);
+        $this->event   = $webhookCall->eventActionName();
+        $this->payload = json_decode($webhookCall->payload["payload"]);
     }
 
     public function handle(): void
