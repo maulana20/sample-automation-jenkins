@@ -39,6 +39,7 @@ services:
       - ./web:/var/www/html
     ports:
       - 80:80
+      - 9912:9912
     restart: unless-stopped
     depends_on:
       - db
