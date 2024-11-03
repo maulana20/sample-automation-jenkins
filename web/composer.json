@@ -12,6 +12,7 @@
         "spatie/laravel-github-webhooks": "^1.2"
     },
     "require-dev": {
+        "beyondcode/laravel-dump-server": "^2.0",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
