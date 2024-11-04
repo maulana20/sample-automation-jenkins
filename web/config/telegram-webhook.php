@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name'                  => \App\Enums\ProviderEnum::JIRA,
+    'name'                  => \App\Enums\ProviderEnum::TELEGRAM,
     'signing_secret'        => "",
     'signature_header_name' => 'X-Hub-Signature-256',
     'signature_validator'   => \Spatie\GitHubWebhooks\GitHubSignatureValidator::class,
@@ -9,6 +9,6 @@ return [
     'webhook_model'         => \Spatie\GitHubWebhooks\Models\GitHubWebhookCall::class,
     'process_webhook_job'   => \App\Jobs\ProcessClientJob::class,
     'jobs' => [
-        "ping" => \App\Jobs\Jira\PingJiraJob::class,
+        "send" => \App\Jobs\Telegram\SendTelegramJob::class,
     ]
 ];
