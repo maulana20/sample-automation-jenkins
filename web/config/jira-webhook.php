@@ -1,16 +1,15 @@
 <?php
 
-use Spatie\GitHubWebhooks\Models\GitHubWebhookCall;
-use Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile;
-
 return [
-    'signing_secret' => env('JIRA_WEBHOOK_SECRET'),
-    'jobs' => [
-        'ping' => \App\Jobs\Jira\PingJiraJob::class,
-    ],
-    'model' => GitHubWebhookCall::class,
-    'prune_webhook_calls_after_days' => 10,
-    'job' => \App\Jobs\ProcessJiraJob::class,
-    'profile' => ProcessEverythingWebhookProfile::class,
-    'verify_signature' => env('JIRA_SIGNATURE_VERIFY', true),
+    'name'                  => "Jira",
+    'signing_secret'        => "",
+    'signature_header_name' => 'X-Hub-Signature-256',
+    'signature_validator'   => \Spatie\GitHubWebhooks\GitHubSignatureValidator::class,
+    'webhook_profile'       => \Spatie\WebhookClient\WebhookProfile\ProcessEverythingWebhookProfile::class,
+    'webhook_model'         => \Spatie\GitHubWebhooks\Models\GitHubWebhookCall::class,
+    'process_webhook_job'   => \App\Jobs\ProcessJiraJob::class,
+    // additional
+    "jobs" => [
+        "ping" => \App\Jobs\Jira\PingJiraJob::class,
+    ]
 ];

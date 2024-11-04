@@ -24,7 +24,7 @@ class JiraWebhookTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        Route::post("{provider}/webhook", WebhookController::class);
+        Route::post("api/{provider}/webhook", WebhookController::class);
         Bus::fake([ HandlePingJiraJob::class ]);
         $this->faker = Factory::create();
         $this->faker->addProvider(new Internet($this->faker));
@@ -43,7 +43,7 @@ class JiraWebhookTest extends TestCase
             ]
         ];
 
-        $this->postJson("jira/webhook", $payload)
+        $this->postJson("api/jira/webhook", $payload)
             ->assertSuccessful();
 
         Bus::assertDispatched(HandlePingJiraJob::class);
@@ -64,7 +64,7 @@ class JiraWebhookTest extends TestCase
             ]
         ];
 
-        $this->postJson("jira/webhook", $payload)
+        $this->postJson("api/jira/webhook", $payload)
             ->assertSuccessful();
 
         Event::assertDispatched("jira-webhook::ping", 1);
