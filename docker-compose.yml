@@ -36,9 +36,11 @@ services:
         max-size: "10m"
         max-file: "1"
     volumes:
-      - ./web:/var/www/html
+      - ./web:/app
     ports:
       - 80:80
+      - 443:443
+      - 443:443/udp
       - 9912:9912
     restart: unless-stopped
     depends_on:
